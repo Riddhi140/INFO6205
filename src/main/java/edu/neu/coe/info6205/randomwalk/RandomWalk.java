@@ -21,6 +21,8 @@ public class RandomWalk {
      */
     private void move(int dx, int dy) {
         // TO BE IMPLEMENTED
+        x+=dx;
+        y+=dy;
     }
 
     /**
@@ -30,8 +32,9 @@ public class RandomWalk {
      */
     private void randomWalk(int m) {
         // TO BE IMPLEMENTED
-
-        System.out.println("Hello");
+        for(int i=0; i<m; i++){
+            randomMove();
+        }
     }
 
     /**
@@ -51,7 +54,7 @@ public class RandomWalk {
      */
     public double distance() {
         // TO BE IMPLEMENTED
-        return 0;
+        return Math.sqrt(x*x+y*y); //Pythagoras theorem
     }
 
     /**
@@ -72,13 +75,22 @@ public class RandomWalk {
     }
 
     public static void main(String[] args) {
-        if (args.length == 0)
-            throw new RuntimeException("Syntax: RandomWalk steps [experiments]");
-        int m = Integer.parseInt(args[0]);
-        int n = 30;
-        if (args.length > 1) n = Integer.parseInt(args[1]);
-        double meanDistance = randomWalkMulti(m, n);
-        System.out.println(m + " steps: " + meanDistance + " over " + n + " experiments");
+        /*if (args.length == 0)
+            throw new RuntimeException("Syntax: RandomWalk steps [experiments]");*/
+        // int m = Integer.parseInt(args[0]);
+
+        for (int i = 0; i < 15; i++) {
+            int m = (int) (Math.random() * 100) + 1; // No. of Steps
+            int n = (int) (Math.random() * 100) + 10; // No. of times we need to run the experiment for each step
+
+            // if (args.length > 1) n = Integer.parseInt(args[1]);
+            double meanDistance = Math.round(randomWalkMulti(m, n) * 100D) / 100D;
+
+            System.out.println(m + " steps: " + "Mean distance =" + meanDistance + " over " + n + " experiments");
+            System.out.println(m + "," + meanDistance);
+
+
+        }
     }
 
-}
+    }
