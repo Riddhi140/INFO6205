@@ -1,4 +1,4 @@
-package Assignment_2;
+package Assignment_2_Part3;
 
 import edu.neu.coe.info6205.sort.elementary.InsertionSort;
 import edu.neu.coe.info6205.util.Benchmark_Timer;
