@@ -9,28 +9,28 @@ import java.util.function.Supplier;
 
 public class Unicode {
 
-    public void sort(List<String> words){
+    public void sort(List<String> words) {
         try {
 //            String[] hindiArr = {"गुणवत्ता", "एशिया", "खाना", "पकाना", "फोटोग्राफी", "भारतीय", "मसाला", "विध"};
 //            words.stream().sorted().forEach(System.out::println);
             List<String> test = new ArrayList<>();
-            for(int i=0; i<words.size(); i++){
+            for (int i = 0; i < words.size(); i++) {
                 byte[] bytearr = words.get(i).getBytes("UTF-16");
                 test.add(new String(bytearr, "UTF-16"));
             }
 
 //             String encodedString = MimeUtility.encodeText(test, "utf-16", "B");
             System.out.println("...Before Sorting...");
-            for(String str: test){
+            for (String str : test) {
                 System.out.println(str);
             }
             MSD.sort(test);
 
             System.out.println("\n...After Sorting...");
-            for(String str: test){
+            for (String str : test) {
                 System.out.println(str);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error: " + e);
         }
     }
@@ -38,27 +38,19 @@ public class Unicode {
 
     public static void main(String[] args) throws IOException {
         Unicode unicode = new Unicode();
-        List<String> words = FileUtil.hindiWordsList("Unicode/res/extendedHindiWords.csv");
-        String[] arr = new String[words.size()];
+        // List<String> words = FileUtil.hindiWordsList("Unicode/res/hindiChar.csv");
+        List<String> words = Arrays.asList(new String[]{"कम", "केम", "काम", "कूम", "कुम"});
 
         Supplier<List<String>> supplier = () -> {
-            Random random = new Random();
-            for(int k=0; k<words.size(); k++){
-                arr[k] = words.get(random.nextInt(words.size()));
-            }
-
-            return Arrays.asList(arr);
+            Collections.shuffle(words);
+            return words;
         };
 
-        Benchmark_Timer<List<String>> bTimer = new Benchmark_Timer<>("Benchmark Test", null, (x) -> unicode.sort(Arrays.asList(arr)), null);
+        Benchmark_Timer<List<String>> bTimer = new Benchmark_Timer<>("Benchmark Test", null, (x) -> unicode.sort(words), null);
+
 
         double time = bTimer.runFromSupplier(supplier, 10);
-        System.out.println(" Order Situation- Randomly Ordered" + " Time Taken: " + time + "ms");
-
-
-
-
-
+        System.out.println(" Order Situation- Randomly Ordered" + " Time Taken: " + time);
 
     }
 }
